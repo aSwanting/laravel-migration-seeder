@@ -17,10 +17,10 @@
                 <th>Train Company</th>
                 <th>Departure Station</th>
                 <th>Arrival Station</th>
-                <th>Departure Time</th>
-                <th>Arrival Time</th>
                 <th>Departure Date</th>
                 <th>Arrival Date</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
                 <th>Train Number</th>
                 <th>Carriages</th>
                 <th>On Time</th>
@@ -30,10 +30,10 @@
                     <td>{{ $train->train_company }}</td>
                     <td>{{ $train->departure_station }}</td>
                     <td>{{ $train->arrival_station }}</td>
-                    <td>{{ $train->departure_time }}</td>
-                    <td>{{ $train->arrival_time }}</td>
                     <td>{{ $train->departure_date }}</td>
                     <td>{{ $train->arrival_date }}</td>
+                    <td>{{ $train->departure_time }}</td>
+                    <td>{{ $train->arrival_time }}</td>
                     <td>{{ $train->train_number }}</td>
                     <td>{{ $train->carriage_number }}</td>
                     <td>{{ $train->on_time ? 'on time' : 'delayed' }}</td>
