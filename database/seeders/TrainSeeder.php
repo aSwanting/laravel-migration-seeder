@@ -22,15 +22,29 @@ class TrainSeeder extends Seeder
             $new_train->departure_station = $faker->city();
             $new_train->arrival_station = $faker->city();
 
-            $new_train->departure_date = $faker->dateTimeBetween('now', '+1 day');
+            // Generate Start Date
+            $new_train->departure_date = $faker->dateTimeBetween('now', '+1 week');
 
+            // Generate Date Range
             $date_min = $new_train->departure_date;
             $date_max = date_modify(clone $date_min, '3 days');
 
+            // Generate Arrival Date
             $new_train->arrival_date = $faker->dateTimeBetween($date_min, $date_max);
 
+            // Generate Departure Time
             $new_train->departure_time = $faker->time();
+
+            // Generate Arrival Time
             $new_train->arrival_time = $faker->time();
+
+            // If train departs and arrives on the same day, make sure departure time < arrival time
+            if (date_format($new_train->departure_date, 'y m d') == date_format($new_train->arrival_date, 'y m d')) {
+
+                while ($new_train->arrival_time <= $new_train->departure_time) {
+                    $new_train->arrival_time = $faker->time();
+                }
+            }
 
             $new_train->train_number = $faker->randomNumber(5, true);
             $new_train->carriage_number = $faker->numberBetween(3, 12);
