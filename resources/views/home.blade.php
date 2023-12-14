@@ -23,9 +23,10 @@
                 <th>Arrival Date</th>
                 <th>Train Number</th>
                 <th>Carriages</th>
+                <th>On Time</th>
             </tr>
             @foreach ($trains as $train)
-                <tr>
+                <tr @class([$train->cancelled ? 'cancelled' : ''])>
                     <td>{{ $train->train_company }}</td>
                     <td>{{ $train->departure_station }}</td>
                     <td>{{ $train->arrival_station }}</td>
@@ -35,6 +36,7 @@
                     <td>{{ $train->arrival_date }}</td>
                     <td>{{ $train->train_number }}</td>
                     <td>{{ $train->carriage_number }}</td>
+                    <td>{{ $train->on_time ? 'on time' : 'delayed' }}</td>
                 </tr>
             @endforeach
         </table>

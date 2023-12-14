@@ -1,1 +1,20 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+.table tr {
+    position: relative;
+
+    &.cancelled::after {
+        content: "CANCELLED";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        letter-spacing: 0.8em;
+        color: white;
+        text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+    }
+}
