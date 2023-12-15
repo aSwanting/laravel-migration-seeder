@@ -20,10 +20,10 @@ return new class extends Migration
             $table->date('arrival_date');
             $table->time('departure_time');
             $table->time('arrival_time');
-            $table->string('train_number');
+            $table->string('train_number', 5);
             $table->unsignedTinyInteger('carriage_number');
-            $table->boolean('on_time');
-            $table->boolean('cancelled');
+            $table->boolean('on_time')->default(true);
+            $table->boolean('cancelled')->default(false);
             $table->timestamps();
         });
     }

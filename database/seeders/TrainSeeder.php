@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Train;
-use DateTimeImmutable;
 use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,36 +21,32 @@ class TrainSeeder extends Seeder
             $new_train->departure_station = $faker->city();
             $new_train->arrival_station = $faker->city();
 
-            // Generate Start Date
-            $new_train->departure_date = $faker->dateTimeBetween('now', '+1 week');
+            [$departure, $arrival] = TrainSeeder::getCoherentDateTimes($faker);
+            $new_train->departure_date = $departure;
+            $new_train->arrival_date = $arrival;
+            $new_train->departure_time = $departure;
+            $new_train->arrival_time = $arrival;
 
-            // Generate Date Range
-            $date_min = $new_train->departure_date;
-            $date_max = date_modify(clone $date_min, '3 days');
-
-            // Generate Arrival Date
-            $new_train->arrival_date = $faker->dateTimeBetween($date_min, $date_max);
-
-            // Generate Departure Time
-            $new_train->departure_time = $faker->time();
-
-            // Generate Arrival Time
-            $new_train->arrival_time = $faker->time();
-
-            // If train departs and arrives on the same day, make sure departure time < arrival time
-            if (date_format($new_train->departure_date, 'y m d') == date_format($new_train->arrival_date, 'y m d')) {
-
-                while ($new_train->arrival_time <= $new_train->departure_time) {
-                    $new_train->arrival_time = $faker->time();
-                }
-            }
-
-            $new_train->train_number = $faker->randomNumber(5, true);
+            $new_train->train_number = $faker->bothify('?#?#?');
             $new_train->carriage_number = $faker->numberBetween(3, 12);
             $new_train->on_time = $faker->boolean();
             $new_train->cancelled = $faker->boolean();
             $new_train->save();
         }
+    }
+
+    private function getCoherentDateTimes($faker)
+    {
+        $departure = $faker->dateTimeBetween('-1 week', '+1 week');
+        $arrival = $faker->dateTimeBetween($departure, date_modify(clone $departure, '3 days'));
+
+        if (date_format($departure, 'y m d') == date_format($arrival, 'y m d')) {
+            if (date_format($departure, 'H') > date_format($arrival, 'H')) {
+                $arrival = $faker->dateTimeInInterval($departure, '+6 hours');
+            }
+        }
+
+        return [$departure, $arrival];
     }
 }
 

@@ -11,15 +11,15 @@
 
 <body>
     <main class="p-5">
-        <h1 class="text-center mb-5">Trains Departing Today</h1>
+        <h1 class="text-center mb-5">Trains Trains Trains</h1>
         <table class="table">
             <tr>
                 <th>Train Company</th>
                 <th>Departure Station</th>
                 <th>Arrival Station</th>
                 <th>Departure Date</th>
-                <th>Arrival Date</th>
                 <th>Departure Time</th>
+                <th>Arrival Date</th>
                 <th>Arrival Time</th>
                 <th>Train Number</th>
                 <th>Carriages</th>
@@ -31,8 +31,8 @@
                     <td>{{ $train->departure_station }}</td>
                     <td>{{ $train->arrival_station }}</td>
                     <td>{{ $train->departure_date }}</td>
-                    <td>{{ $train->arrival_date }}</td>
                     <td>{{ $train->departure_time }}</td>
+                    <td>{{ $train->arrival_date }}</td>
                     <td>{{ $train->arrival_time }}</td>
                     <td>{{ $train->train_number }}</td>
                     <td>{{ $train->carriage_number }}</td>
